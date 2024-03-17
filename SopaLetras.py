@@ -4,6 +4,7 @@ import time
 
 abecedario = list(string.ascii_uppercase)
 animales = ['TIGRE', 'RATON', 'PERRO', 'GATO', 'LORO', 'PEZ']
+cantidadPalabras = 6
 sopa = []
 
 def jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite):
@@ -14,6 +15,7 @@ def jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite):
     print("Escribe 'salir' para terminar el juego.")
     
     palabras_restantes = list(palabras_seleccionadas)  # Hacemos una copia de las palabras seleccionadas
+    palabras_encontradas = []  # Lista para almacenar las palabras encontradas
     tiempo_inicio = time.time()
     
     while palabras_restantes:
@@ -22,24 +24,26 @@ def jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite):
         
         if tiempo_restante == 0:
             print("¡Tiempo agotado! Has excedido el tiempo límite.")
-            return
+            return palabras_encontradas
         
         palabra_usuario = input(f"Tienes {int(tiempo_restante)} segundos restantes. Escribe una palabra encontrada: ").strip().upper()
         
         if palabra_usuario == 'SALIR':
             print("Gracias por jugar. ¡Hasta luego!")
-            return
+            return palabras_encontradas
         
         if palabra_usuario in palabras_restantes:
             if verificar_palabra(sopa, palabra_usuario):
                 print("¡Felicidades! Encontraste la palabra", palabra_usuario)
                 palabras_restantes.remove(palabra_usuario)
+                palabras_encontradas.append(palabra_usuario)  # Agregamos la palabra encontrada a la lista
             else:
                 print("La palabra", palabra_usuario, "no está en la sopa de letras.")
         else:
             print("La palabra", palabra_usuario, "no es una de las palabras a encontrar.")
     
     print("¡Has encontrado todas las palabras! ¡Felicidades!")
+    return palabras_encontradas
 
 def rellenar_sopa(sopa, tam):
     for i in range(tam):
@@ -124,15 +128,4 @@ def verificar_palabra(sopa, palabra):
     
     return False
 
-# Modificar el tamaño de la sopa según sea necesario
-tam_sopa = 8
-
-rellenar_sopa(sopa, tam_sopa)
-palabras_seleccionadas = elegir_palabras(animales, 3)
-incluir_palabras(sopa, palabras_seleccionadas)
-
-# Definir el tiempo límite en segundos
-tiempo_limite = 120
-
-# Iniciar el juego
-jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite)
+# Mod

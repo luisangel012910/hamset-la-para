@@ -3,12 +3,21 @@ import string
 import time
 
 abecedario = list(string.ascii_uppercase)
-animales = ['TIGRE', 'RATON', 'PERRO', 'GATO', 'LORO', 'PEZ']
+listaAnimales =  ["TIGRE", "RATON", "PERRO", "GATO", "LORO"]
+listaColores = ["ROJO", "AZUL", "VERDE", "NEGRO", "BLANCO"]
+listaComida = ["PIZZA", "ARROZ", "PASTA", "CARNE", "SUSHI"]
+cantidadPalabras = 2
+listas = [listaAnimales, listaColores, listaComida]
+
+# Elegir aleatoriamente una lista de la lista de listas
+lista_aleatoria = random.choice(listas)
+
 sopa = []
 
 def jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite):
     print("Bienvenido al juego de encontrar palabras en la sopa de letras.")
-    print("Encuentra las siguientes palabras en la sopa de letras:")
+    print("Encuentra {} palabras en la sopa de letras:".format(cantidadPalabras))
+    print("Lista impresa: "+ str(lista_aleatoria))
     imprimir_matriz(sopa, 2)
     print(f"Tienes {tiempo_limite} segundos para encontrar todas las palabras.")
     print("Escribe 'salir' para terminar el juego.")
@@ -128,11 +137,12 @@ def verificar_palabra(sopa, palabra):
 tam_sopa = 8
 
 rellenar_sopa(sopa, tam_sopa)
-palabras_seleccionadas = elegir_palabras(animales, 3)
+#animales = ['TIGRE', 'RATON', 'PERRO', 'GATO', 'LORO']
+palabras_seleccionadas = elegir_palabras(lista_aleatoria, cantidadPalabras)
 incluir_palabras(sopa, palabras_seleccionadas)
 
 # Definir el tiempo límite en segundos
 tiempo_limite = 120
 
 # Iniciar el juego
-jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite)
+jugar_palabras(sopa, palabras_seleccionadas, tiempo_limite) 
